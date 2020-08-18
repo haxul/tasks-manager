@@ -1,0 +1,7 @@
+version: '3'
+services:
+  redis:
+    image: redis:6.0
+    command: ["sh", "-c", "exec redis-server --requirepass \"redis_password\""]
+    ports:
+    - 6379:6379
