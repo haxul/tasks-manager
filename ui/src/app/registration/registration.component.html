@@ -1,1 +1,24 @@
-<p>registration works!</p>
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+
+<div class="wrapper fadeInDown">
+  <div id="formContent">
+
+    <div class="fadeIn first">
+      <img src="../../assets/cloud.png" id="icon" alt="User Icon"/>
+    </div>
+
+
+    <input type="text" id="login" class="fadeIn second" name="login" placeholder="username" [(ngModel)]="username">
+    <input type="text" id="password" class="fadeIn third" name="login" placeholder="password" [(ngModel)]="password">
+    <input type="text" class="fadeIn third" name="login" placeholder="repeat password" [(ngModel)]="passControl">
+    <input (click)="signup()" type="submit" class="fadeIn fourth" value="Sign Up">
+
+    <div id="formFooter">
+      <a class="underlineHover" href="/login">Already registered?</a>
+    </div>
+
+  </div>
+</div>

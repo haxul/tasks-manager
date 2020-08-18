@@ -1,3 +1,4 @@
-<header>hello header</header>
+<header *ngIf="isAuthPage">hello header</header>
 <router-outlet></router-outlet>
-<footer> hello footer</footer>
+<footer *ngIf="isAuthPage"> hello footer</footer>
+

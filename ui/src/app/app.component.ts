@@ -1,10 +1,25 @@
-import { Component } from '@angular/core';
+import {AfterViewInit, Component, OnInit} from "@angular/core"
+import {Router} from "@angular/router"
+import {AuthService} from "./auth.service"
 
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  selector: "app-root",
+  templateUrl: "./app.component.html",
+  styleUrls: ["./app.component.css"]
 })
-export class AppComponent {
-  title = 'ui';
+export class AppComponent implements OnInit, AfterViewInit {
+  title = "services for live"
+  isAuthPage: boolean = false
+
+  constructor(private router: Router, private authService: AuthService) {
+  }
+
+
+  ngOnInit(): void {
+    this.authService.checkToken()
+  }
+
+  ngAfterViewInit(): void {
+    this.isAuthPage = this.router.url === "/login" || this.router.url === "/signup"
+  }
 }
