@@ -1,5 +1,5 @@
 /* BASIC */
-
+@import url('//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css');
 html {
   background-color: #56baed;
 }
@@ -278,4 +278,15 @@ input[type=text]:placeholder {
 #icon {
   width: 80px;
   height: 80px;
+}
+
+.error-msg {
+  margin: 10px 0;
+  padding: 10px;
+  border-radius: 3px 3px 3px 3px;
+}
+
+.error-msg {
+  color: #D8000C;
+  background-color: #FFBABA;
 }

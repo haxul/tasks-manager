@@ -11,10 +11,15 @@
     </div>
 
 
-    <input type="text" id="login" class="fadeIn second" name="login" placeholder="username" [(ngModel)]="username">
-    <input type="text" id="password" class="fadeIn third" name="login" placeholder="password" [(ngModel)]="password">
-    <input type="text" class="fadeIn third" name="login" placeholder="repeat password" [(ngModel)]="passControl">
+    <input type="text" id="login" class="fadeIn second" name="login" placeholder="username" [(ngModel)]="username" (input)="clearErrors()">
+    <input type="text" id="password" class="fadeIn third" name="login" placeholder="password" [(ngModel)]="password" (input)="clearErrors()">
+    <input type="text" class="fadeIn third" name="login" placeholder="repeat password" [(ngModel)]="passControl" (input)="clearErrors()">
     <input (click)="signup()" type="submit" class="fadeIn fourth" value="Sign Up">
+
+    <div *ngIf="errorValidateMessage" class="error-msg">
+      <i class="fa fa-times-circle"></i>
+       Problem in {{errorValidateMessage?.field}} field. {{errorValidateMessage?.text.toLocaleLowerCase()}}
+    </div>
 
     <div id="formFooter">
       <a class="underlineHover" href="/login">Already registered?</a>
