@@ -12,8 +12,8 @@
 
 
     <input type="text" id="login" class="fadeIn second" name="login" placeholder="username" [(ngModel)]="username" (input)="clearErrors()">
-    <input type="text" id="password" class="fadeIn third" name="login" placeholder="password" [(ngModel)]="password" (input)="clearErrors()">
-    <input type="text" class="fadeIn third" name="login" placeholder="repeat password" [(ngModel)]="passControl" (input)="clearErrors()">
+    <input type="password" id="password" class="fadeIn third" name="login" placeholder="password" [(ngModel)]="password" (input)="clearErrors()">
+    <input type="password" class="fadeIn third" name="login" placeholder="repeat password" [(ngModel)]="passControl" (input)="clearErrors()">
     <input (click)="signup()" type="submit" class="fadeIn fourth" value="Sign Up">
 
     <div *ngIf="errorValidateMessage" class="error-msg">

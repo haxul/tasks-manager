@@ -1,7 +1,7 @@
 import {Component} from "@angular/core"
 import {Router} from "@angular/router"
-import {ErrorMessage, errorMessageFactory} from "../../dto/errorMessage"
-import {Result} from "../../dto/result"
+import {ErrorMessage, errorMessageFactory} from "../dto/errorMessage"
+import {Result} from "../dto/result"
 
 @Component({
   selector: "app-registration",
