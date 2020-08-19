@@ -25,8 +25,14 @@ public class ExceptionController extends ResponseEntityExceptionHandler {
     }
 
     @ExceptionHandler(value = {UsernameExistException.class})
-    public ResponseEntity<Object> handleAnyException(Exception ex, WebRequest request) {
+    public ResponseEntity<Object> handleUsernameExistException(Exception ex, WebRequest request) {
         ErrorMessage message = new ErrorMessage("Error", "Username exists");
+        return ResponseEntity.badRequest().contentType(MediaType.APPLICATION_JSON).body(gson.toJson(message));
+    }
+
+    @ExceptionHandler(value = {LoginFailedException.class})
+    public ResponseEntity<Object> handleLoginFailedException(Exception ex, WebRequest request) {
+        ErrorMessage message = new ErrorMessage("Error", "Login is failed");
         return ResponseEntity.badRequest().contentType(MediaType.APPLICATION_JSON).body(gson.toJson(message));
     }
 }
