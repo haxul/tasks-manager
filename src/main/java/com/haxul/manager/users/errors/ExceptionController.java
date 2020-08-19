@@ -1,6 +1,7 @@
 package com.haxul.manager.users.errors;
 
 import com.google.gson.Gson;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -12,13 +13,10 @@ import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 @ControllerAdvice
+@RequiredArgsConstructor
 public class ExceptionController extends ResponseEntityExceptionHandler {
 
     private final Gson gson;
-
-    public ExceptionController(Gson gson) {
-        this.gson = gson;
-    }
 
     @Override
     protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
