@@ -35,4 +35,10 @@ public class ExceptionController extends ResponseEntityExceptionHandler {
         ErrorMessage message = new ErrorMessage("Error", "Login is failed");
         return ResponseEntity.badRequest().contentType(MediaType.APPLICATION_JSON).body(gson.toJson(message));
     }
+
+    @ExceptionHandler(value = {AccessForbiddenException.class})
+    public ResponseEntity<Object> handleAccessForbidden(Exception ex, WebRequest request) {
+        ErrorMessage message = new ErrorMessage("Error", "Access forbidden");
+        return ResponseEntity.status(HttpStatus.FORBIDDEN).contentType(MediaType.APPLICATION_JSON).body(gson.toJson(message));
+    }
 }
