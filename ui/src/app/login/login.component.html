@@ -1,1 +1,29 @@
-<p>login works!</p>
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+
+<div class="wrapper fadeInDown">
+  <div id="formContent">
+
+    <div class="fadeIn first">
+      <img src="../../assets/cloud.png" id="icon" alt="User Icon"/>
+    </div>
+
+
+    <input type="text" id="login" class="fadeIn second" name="login" placeholder="username" [(ngModel)]="username" (keyup.enter)="login()" (input)="errorMessage = null">
+    <input type="password" id="password" class="fadeIn third" name="login" placeholder="password" [(ngModel)]="password"  (keyup.enter)="login()" (input)="errorMessage = null">
+    <input  type="submit" (click)="login()" class="fadeIn fourth" value="Login">
+
+    <div *ngIf="errorMessage" class="error-msg">
+      <i class="fa fa-times-circle"></i>
+        {{errorMessage}}
+    </div>
+
+    <div id="formFooter">
+      <a class="underlineHover" href="/signup">Not registered?</a>
+    </div>
+
+  </div>
+</div>
+
