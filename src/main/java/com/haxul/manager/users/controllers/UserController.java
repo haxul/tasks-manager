@@ -21,7 +21,7 @@ public class UserController {
 
     @PostMapping
     public UserResponse createUser(@Valid @RequestBody UserCreateRequest request) {
-        User user = userService.createUser(request.getUsername(), request.getPassword());
+        var user = userService.createUser(request.getUsername(), request.getPassword());
         return new UserResponse(user.getUsername(), user.getCreated());
     }
 

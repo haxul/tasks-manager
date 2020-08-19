@@ -8,6 +8,7 @@ import {LoginComponent} from "./login/login.component"
 import {RegistrationComponent} from "./registration/registration.component"
 import {AuthService} from "./auth.service"
 import {FormsModule} from "@angular/forms"
+import {HttpClientModule} from "@angular/common/http"
 
 
 @NgModule({
@@ -18,6 +19,7 @@ import {FormsModule} from "@angular/forms"
     RegistrationComponent
   ],
   imports: [
+    HttpClientModule,
     BrowserModule,
     RouterModule.forRoot([
       {path: "notfound", component: UnknownComponent},
