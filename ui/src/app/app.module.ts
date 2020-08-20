@@ -9,8 +9,8 @@ import {RegistrationComponent} from "./registration/registration.component"
 import {AuthService} from "./auth.service"
 import {FormsModule} from "@angular/forms"
 import {HttpClientModule} from "@angular/common/http"
-import {MainPageComponent} from './main-page/main-page.component';
-import { LogoutComponent } from './logout/logout.component'
+import { LogoutComponent } from './logout/logout.component';
+import { ChatComponent } from './chat/chat.component'
 
 
 @NgModule({
@@ -19,14 +19,14 @@ import { LogoutComponent } from './logout/logout.component'
     UnknownComponent,
     LoginComponent,
     RegistrationComponent,
-    MainPageComponent,
-    LogoutComponent
+    LogoutComponent,
+    ChatComponent
   ],
   imports: [
     HttpClientModule,
     BrowserModule,
     RouterModule.forRoot([
-      {path: "", component: MainPageComponent},
+      {path: "chat", component: ChatComponent },
       {path: "logout", component: LogoutComponent},
       {path: "notfound", component: UnknownComponent},
       {path: "signup", component: RegistrationComponent},

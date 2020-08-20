@@ -33,7 +33,7 @@ export class LoginComponent {
       (successResp: { username: string, token: string }) => {
         localStorage.setItem("token", successResp.token)
         localStorage.setItem("user" , successResp.username)
-        this.authService.redirectTo("")
+        this.authService.redirectTo("chat")
         },
       (errorResp: {error: {status: string, reason: string}}) => this.errorMessage = errorResp.error.reason
     )
