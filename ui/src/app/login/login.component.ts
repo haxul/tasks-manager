@@ -22,13 +22,21 @@ export class LoginComponent {
   errorMessage: string
 
   login() {
+    console.log("hello world")
     this.errorMessage = null
     const validation: Validation = this.validate(this.username, this.password)
     if (validation.result === Result.FAILURE) {
       this.errorMessage = validation.message
       return
     }
-    this.authService.login(this.username, this.password)
+    this.authService.login(this.username, this.password).subscribe(
+      (successResp: { username: string, token: string }) => {
+        localStorage.setItem("token", successResp.token)
+        localStorage.setItem("user" , successResp.username)
+        this.authService.redirectTo("")
+        },
+      (errorResp: {error: {status: string, reason: string}}) => this.errorMessage = errorResp.error.reason
+    )
   }
 
   validate(username: string, password: string): Validation {

@@ -1,6 +1,7 @@
 import {AfterViewInit, Component, OnInit} from "@angular/core"
 import {Router} from "@angular/router"
 import {AuthService} from "./auth.service"
+import {environment} from "../environments/environment"
 
 @Component({
   selector: "app-root",
@@ -20,6 +21,8 @@ export class AppComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    this.isAuthPage = this.router.url === "/login" || this.router.url === "/signup"
+    const url = window.location.href.replace(environment.clientUrl, "")
+    setTimeout(() => this.isAuthPage = url === "/login" || url === "/signup")
   }
+
 }

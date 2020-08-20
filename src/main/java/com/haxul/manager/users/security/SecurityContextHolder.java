@@ -1,7 +1,5 @@
 package com.haxul.manager.users.security;
 
-import lombok.Data;
-
 
 public class SecurityContextHolder {
     private static final ThreadLocal<String> myThreadLocal = new ThreadLocal<>();

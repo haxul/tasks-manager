@@ -24,7 +24,7 @@ public class AuthFilter extends HandlerInterceptorAdapter {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
        try {
-           var availableUrls = List.of("/users/login", "/user/signup");
+           var availableUrls = List.of("/users/login", "/users/signup");
            var tokenHeader = request.getHeader("Authorization");
            var url = request.getRequestURI();
            var method = request.getMethod();

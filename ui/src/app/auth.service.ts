@@ -3,6 +3,11 @@ import {Router} from "@angular/router"
 import {HttpClient} from "@angular/common/http"
 import {environment} from "../environments/environment"
 
+interface AuthRequest {
+  username: string
+  password: string
+}
+
 @Injectable({
   providedIn: "root"
 })
@@ -16,14 +21,24 @@ export class AuthService {
     if (!token) this.router.navigate(["login"])
   }
 
-  signup(username: string, password: string) {
-    const body: { username: string, password: string } = {
+  createAuthRequest(username: string, password: string): AuthRequest {
+    return {
       username,
       password
     }
-    return this.httpClient.post(`${environment.url}/users`, body)
+  }
+
+  signup(username: string, password: string) {
+    const body: AuthRequest = this.createAuthRequest(username, password)
+    return this.httpClient.post(`${environment.serverUrl}/users/signup`, body)
   }
 
   login(username: string, password: string) {
+    const body: AuthRequest = this.createAuthRequest(username, password)
+    return this.httpClient.post(`${environment.serverUrl}/users/login`, body)
+  }
+
+  redirectTo(url:string) {
+    this.router.navigate([url])
   }
 }
