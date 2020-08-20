@@ -1,19 +1,24 @@
 package com.haxul.manager.users.controllers;
 
-import com.google.gson.Gson;
-import com.haxul.manager.users.dto.Message;
+import com.haxul.manager.users.dto.ChatMessage;
+import com.haxul.manager.users.services.UserService;
+import lombok.RequiredArgsConstructor;
+import org.springframework.messaging.handler.annotation.DestinationVariable;
 import org.springframework.messaging.handler.annotation.MessageMapping;
-import org.springframework.messaging.handler.annotation.SendTo;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Controller;
 
 @Controller
+@RequiredArgsConstructor
 public class WebSocketController {
 
-    @MessageMapping("/hello")
-    @SendTo("/topic/greetings")
-    public String greeting(Message message) throws Exception {
-        Gson gson = new Gson();
-        return gson.toJson(new Message("hello"));
-    }
+    private final SimpMessagingTemplate simpMessagingTemplate;
+    private final UserService userService;
 
+    @MessageMapping("/user/{to}/chat")
+    public void sendMessage(@DestinationVariable String to, ChatMessage message) {
+        //var user = userService.findUserByUsername(to);
+        //if (user != null)
+        simpMessagingTemplate.convertAndSend("/topic/messages/" + to, message);
+    }
 }

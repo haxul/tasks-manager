@@ -35,6 +35,9 @@ public class UserService {
         return userRepository.createUser(username, hash);
     }
 
+    public User findUserByUsername (String username){
+        return userRepository.findUserByUsername(username);
+    }
     public String loginUser(String username, String password) {
         var user = userRepository.findUserByUsername(username);
         if (user == null) throw new LoginFailedException();
@@ -42,6 +45,7 @@ public class UserService {
         if (!isCorrectPassword) throw new LoginFailedException();
         return createJwtToken(username);
     }
+
 
     private String createJwtToken(String username) {
         var signatureAlgorithm = SignatureAlgorithm.HS256;

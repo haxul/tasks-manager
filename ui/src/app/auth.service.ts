@@ -18,7 +18,7 @@ export class AuthService {
 
   checkToken(): void {
     const token = localStorage.getItem("token")
-    if (!token) this.router.navigate(["login"])
+    if (!token) this.redirectTo("login")
   }
 
   createAuthRequest(username: string, password: string): AuthRequest {

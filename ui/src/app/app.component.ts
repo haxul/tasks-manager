@@ -8,17 +8,13 @@ import {environment} from "../environments/environment"
   templateUrl: "./app.component.html",
   styleUrls: ["./app.component.css"]
 })
-export class AppComponent implements OnInit, AfterViewInit {
+export class AppComponent implements  AfterViewInit {
   title = "services for live"
   isAuthPage: boolean = false
 
   constructor(private router: Router, private authService: AuthService) {
   }
 
-
-  ngOnInit(): void {
-    this.authService.checkToken()
-  }
 
   ngAfterViewInit(): void {
     const url = window.location.href.replace(environment.clientUrl, "")

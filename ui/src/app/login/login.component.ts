@@ -22,7 +22,6 @@ export class LoginComponent {
   errorMessage: string
 
   login() {
-    console.log("hello world")
     this.errorMessage = null
     const validation: Validation = this.validate(this.username, this.password)
     if (validation.result === Result.FAILURE) {

@@ -11,6 +11,8 @@ import {FormsModule} from "@angular/forms"
 import {HttpClientModule} from "@angular/common/http"
 import { LogoutComponent } from './logout/logout.component';
 import { ChatComponent } from './chat/chat.component'
+import {ChatService} from "./chat/chat.service";
+import { MemberComponent } from './chat/member/member.component'
 
 
 @NgModule({
@@ -20,7 +22,8 @@ import { ChatComponent } from './chat/chat.component'
     LoginComponent,
     RegistrationComponent,
     LogoutComponent,
-    ChatComponent
+    ChatComponent,
+    MemberComponent
   ],
   imports: [
     HttpClientModule,
@@ -35,7 +38,7 @@ import { ChatComponent } from './chat/chat.component'
     ]),
     FormsModule
   ],
-  providers: [AuthService],
+  providers: [AuthService, ChatService],
   bootstrap: [AppComponent]
 })
 export class AppModule {
