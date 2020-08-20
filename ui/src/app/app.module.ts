@@ -9,7 +9,8 @@ import {RegistrationComponent} from "./registration/registration.component"
 import {AuthService} from "./auth.service"
 import {FormsModule} from "@angular/forms"
 import {HttpClientModule} from "@angular/common/http"
-import {MainPageComponent} from './main-page/main-page.component'
+import {MainPageComponent} from './main-page/main-page.component';
+import { LogoutComponent } from './logout/logout.component'
 
 
 @NgModule({
@@ -18,13 +19,15 @@ import {MainPageComponent} from './main-page/main-page.component'
     UnknownComponent,
     LoginComponent,
     RegistrationComponent,
-    MainPageComponent
+    MainPageComponent,
+    LogoutComponent
   ],
   imports: [
     HttpClientModule,
     BrowserModule,
     RouterModule.forRoot([
       {path: "", component: MainPageComponent},
+      {path: "logout", component: LogoutComponent},
       {path: "notfound", component: UnknownComponent},
       {path: "signup", component: RegistrationComponent},
       {path: "login", component: LoginComponent},

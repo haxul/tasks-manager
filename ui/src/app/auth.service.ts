@@ -39,6 +39,6 @@ export class AuthService {
   }
 
   redirectTo(url:string) {
-    this.router.navigate([url])
+   window.location.href = `${environment.clientUrl}/${url}`
   }
 }
