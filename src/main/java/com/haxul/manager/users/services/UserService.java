@@ -6,6 +6,7 @@ import com.haxul.manager.users.repositories.UserRepository;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import lombok.RequiredArgsConstructor;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Service;
 import javax.crypto.spec.SecretKeySpec;
 import javax.xml.bind.DatatypeConverter;
 import java.util.Date;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -56,5 +58,9 @@ public class UserService {
                 .setExpiration(new Date(System.currentTimeMillis() + Long.parseLong(expiration)))
                 .signWith(signatureAlgorithm, singingLey)
                 .compact();
+    }
+
+    public List<User> findAllUsers() {
+        return userRepository.findAllUsers();
     }
 }
