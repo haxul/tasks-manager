@@ -1,4 +1,4 @@
-package com.haxul.manager.users.dto;
+package com.haxul.manager.users.entities;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

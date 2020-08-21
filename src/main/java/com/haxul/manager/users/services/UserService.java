@@ -1,12 +1,11 @@
 package com.haxul.manager.users.services;
 
-import com.haxul.manager.users.dto.User;
+import com.haxul.manager.users.entities.User;
 import com.haxul.manager.users.errors.LoginFailedException;
 import com.haxul.manager.users.repositories.UserRepository;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import lombok.RequiredArgsConstructor;
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;

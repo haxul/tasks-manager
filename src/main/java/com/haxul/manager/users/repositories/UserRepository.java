@@ -1,18 +1,15 @@
 package com.haxul.manager.users.repositories;
 
-import com.haxul.manager.users.dto.User;
+import com.haxul.manager.users.entities.User;
 import com.haxul.manager.users.errors.UsernameExistException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.Pipeline;
-import redis.clients.jedis.Response;
-import redis.clients.jedis.Transaction;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
