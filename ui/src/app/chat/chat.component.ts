@@ -14,13 +14,16 @@ export class ChatComponent implements OnInit {
   }
 
   sendMessage() {
-
-    this.chatService.sendMessage("haxul", "hello from haxul", "haxul")
-
+    const curUsername = localStorage.getItem("user")
+    const receiver: string = this.pickedMember?.username
+    if (!receiver || !curUsername || !this.newMessage) return
+    this.chatService.sendMessage(curUsername, this.newMessage, receiver)
+    this.newMessage = null
   }
 
   chatMembers: Member[] = []
   pickedMember: Member
+  newMessage: string
 
   pickMember(member: Member) {
     this.pickedMember = member

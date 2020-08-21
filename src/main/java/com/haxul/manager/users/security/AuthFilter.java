@@ -23,24 +23,28 @@ public class AuthFilter extends HandlerInterceptorAdapter {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-       try {
-           var availableUrls = List.of("/users/login", "/users/signup");
-           var tokenHeader = request.getHeader("Authorization");
-           var url = request.getRequestURI();
-           var method = request.getMethod();
-           if (method.equals("OPTIONS")) return true;
-           if (method.equals("POST") && availableUrls.contains(url)) return true;
-           var token = tokenHeader.replace("Bearer ", "");
-           var claims = Jwts.parser()
-                   .setSigningKey(DatatypeConverter.parseBase64Binary(tokenSalt))
-                   .parseClaimsJws(token).getBody();
-           var expiration = claims.getExpiration();
-           if (System.currentTimeMillis() > expiration.getTime()) throw new AccessForbiddenException();
-           String username =  claims.getSubject();
-           SecurityContextHolder.setUsername(username);
-           return true;
-       } catch (Exception e ) {
-           throw new AccessForbiddenException();
-       }
+        try {
+            var availableUrls = List.of("/users/login", "/users/signup");
+            var tokenHeader = request.getHeader("Authorization");
+            var url = request.getRequestURI();
+            var method = request.getMethod();
+            if (method.equals("OPTIONS")) return true;
+            if (method.equals("POST") && availableUrls.contains(url)) return true;
+            var token = tokenHeader.replace("Bearer ", "");
+            var username = verifyToken(token);
+            SecurityContextHolder.setUsername(username);
+            return true;
+        } catch (Exception e) {
+            throw new AccessForbiddenException();
+        }
+    }
+
+    public String verifyToken(String token) {
+        var claims = Jwts.parser()
+                .setSigningKey(DatatypeConverter.parseBase64Binary(tokenSalt))
+                .parseClaimsJws(token).getBody();
+        var expiration = claims.getExpiration();
+        if (System.currentTimeMillis() > expiration.getTime()) throw new AccessForbiddenException();
+        return claims.getSubject();
     }
 }

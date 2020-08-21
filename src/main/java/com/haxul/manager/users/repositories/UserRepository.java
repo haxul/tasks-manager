@@ -19,6 +19,7 @@ import java.util.stream.Collectors;
 public class UserRepository {
 
     private final Jedis jedisClient;
+    private String USERS_LIST;
 
     public User createUser(String username, String password) {
         if (jedisClient.exists(username)) throw new UsernameExistException();
@@ -30,7 +31,7 @@ public class UserRepository {
         pipeline.hset(username, "isDeleted", "false");
         pipeline.hset(username, "isBanned", "false");
         pipeline.hset(username, "created", user.getCreated().toString());
-        pipeline.sadd("users", username);
+        pipeline.sadd(USERS_LIST, username);
         pipeline.exec();
         pipeline.close();
         return user;

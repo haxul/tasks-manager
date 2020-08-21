@@ -9,6 +9,7 @@ declare const Stomp
 interface ChatMessage {
   from: string
   text: string
+  token: string
 }
 
 interface StompClient {
@@ -38,7 +39,8 @@ export class ChatService {
   }
 
   sendMessage(from: string, text: string, to: string) {
-    const message: ChatMessage = {from, text}
+    const token:string = localStorage.getItem("token")
+    const message: ChatMessage = {from, text, token}
     this.stompClient.send("/app/user/" + to + "/chat", {}, JSON.stringify(message))
   }
 
