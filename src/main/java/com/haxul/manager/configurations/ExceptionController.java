@@ -1,6 +1,10 @@
-package com.haxul.manager.users.errors;
+package com.haxul.manager.configurations;
 
 import com.google.gson.Gson;
+import com.haxul.manager.users.errors.AccessForbiddenException;
+import com.haxul.manager.users.errors.ErrorMessage;
+import com.haxul.manager.users.errors.LoginFailedException;
+import com.haxul.manager.users.errors.UsernameExistException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;

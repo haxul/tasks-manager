@@ -15,7 +15,7 @@ export class ChatComponent implements OnInit {
 
   sendMessage() {
 
-    this.chatService.sendMessage("haxul", "hello from haxul", "home")
+    this.chatService.sendMessage("haxul", "hello from haxul", "haxul")
 
   }
 
