@@ -12,7 +12,9 @@ import {HttpClientModule} from "@angular/common/http"
 import { LogoutComponent } from './logout/logout.component';
 import { ChatComponent } from './chat/chat.component'
 import {ChatService} from "./chat/chat.service";
-import { MemberComponent } from './chat/member/member.component'
+import { MemberComponent } from './chat/member/member.component';
+import { OutgoingChatMessageComponent } from './chat/outgoing-chat-message/outgoing-chat-message.component';
+import { IncomingChatMessageComponent } from './chat/incoming-chat-message/incoming-chat-message.component'
 
 
 @NgModule({
@@ -23,7 +25,9 @@ import { MemberComponent } from './chat/member/member.component'
     RegistrationComponent,
     LogoutComponent,
     ChatComponent,
-    MemberComponent
+    MemberComponent,
+    OutgoingChatMessageComponent,
+    IncomingChatMessageComponent
   ],
   imports: [
     HttpClientModule,
