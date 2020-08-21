@@ -32,6 +32,7 @@ img {
 }
 
 .chat_people {
+  cursor: pointer;
   overflow: hidden;
   clear: both;
 }

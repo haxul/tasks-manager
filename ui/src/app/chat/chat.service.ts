@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core'
 import {environment} from "../../environments/environment"
-import {Member} from "./member"
-import {HttpClient} from "@angular/common/http"
+import {HttpClient, HttpHeaders} from "@angular/common/http"
+import {AuthService} from "../auth.service"
 
 declare const SockJS
 declare const Stomp
@@ -23,7 +23,7 @@ interface StompClient {
 })
 export class ChatService {
 
-  constructor(private httpClient: HttpClient) {
+  constructor(private httpClient: HttpClient, private authService: AuthService) {
   }
 
   stompClient: StompClient
@@ -32,7 +32,7 @@ export class ChatService {
     let socket = new SockJS(environment.serverUrl + '/gs-guide-websocket;')
     this.stompClient = Stomp.over(socket)
     this.stompClient.connect({},
-      (frame) => this.stompClient.subscribe("/topic/messages/" + username, (message) => console.log(JSON.parse(message.body))),
+      () => this.stompClient.subscribe("/topic/messages/" + username, (message) => console.log(JSON.parse(message.body))),
       () => console.log("DISCONNECT HAPPENED")
     )
   }
@@ -42,8 +42,9 @@ export class ChatService {
     this.stompClient.send("/app/user/" + to + "/chat", {}, JSON.stringify(message))
   }
 
-  findAllMembers(): Member[] {
-    // this.httpClient.post()
-    return null
+  findAllMembers() {
+    const headers = this.authService.createAuthHeaders()
+    const httpOptions = {headers}
+    return this.httpClient.get(`${environment.serverUrl}/users`, httpOptions)
   }
 }
