@@ -19,7 +19,10 @@
 
         <!--        Members-->
         <div class="inbox_chat">
-          <app-member *ngFor="let member of chatMembers" [username]="member.username" [isOnline]="member.isOnline"
+          <app-member *ngFor="let member of chatMembers"
+                      [username]="member.username"
+                      [isOnline]="member.isOnline"
+                      [selectedUser]="pickedMember?.username"
                       (click)="pickMember(member)"></app-member>
         </div>
 

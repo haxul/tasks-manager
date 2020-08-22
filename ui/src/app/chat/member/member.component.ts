@@ -18,6 +18,9 @@ export class MemberComponent {
   @Input()
   isOnline: boolean
 
-  currentUser: string = localStorage.getItem("user")
+  @Input()
+  selectedUser: string
+
+  loginedUser: string = localStorage.getItem("user")
 
 }

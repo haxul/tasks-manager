@@ -3,7 +3,6 @@ package com.haxul.manager.chatMessages.controllers;
 import com.haxul.manager.chatMessages.dto.InputSocketMessage;
 import com.haxul.manager.chatMessages.dto.OutputSocketMessage;
 import com.haxul.manager.chatMessages.services.ChatMessageService;
-import com.haxul.manager.users.errors.UsernameExistException;
 import com.haxul.manager.users.services.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.event.EventListener;
@@ -14,12 +13,10 @@ import org.springframework.messaging.simp.SimpMessageHeaderAccessor;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.messaging.simp.stomp.StompHeaderAccessor;
 import org.springframework.stereotype.Controller;
-import org.springframework.util.MultiValueMap;
 import org.springframework.web.socket.messaging.SessionConnectEvent;
 import org.springframework.web.socket.messaging.SessionDisconnectEvent;
 
 import java.util.LinkedList;
-import java.util.List;
 import java.util.Map;
 
 @Controller

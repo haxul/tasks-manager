@@ -4,7 +4,6 @@ import {AuthService} from "../auth.service"
 import {ResponseGetAllChatMessage, Member, ChatMessage, newIncomingMessage} from "./interfaces"
 import {map} from "rxjs/operators"
 import {environment} from "../../environments/environment"
-import {logger} from "codelyzer/util/logger"
 
 
 declare const SockJS
