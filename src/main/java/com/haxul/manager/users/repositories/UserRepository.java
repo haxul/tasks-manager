@@ -30,6 +30,7 @@ public class UserRepository {
         jedisClient.hset(username, "isDeleted", "false");
         jedisClient.hset(username, "isBanned", "false");
         jedisClient.hset(username, "created", user.getCreated().toString());
+        jedisClient.hset(username, "isOnline", "false");
         jedisClient.sadd(USERS_LIST, username);
         return user;
     }
@@ -40,13 +41,28 @@ public class UserRepository {
         boolean isDeleted = Boolean.parseBoolean(jedisClient.hget(username, "isDeleted"));
         boolean isBanned = Boolean.parseBoolean(jedisClient.hget(username, "isBanned"));
         Timestamp created = Timestamp.valueOf(jedisClient.hget(username, "created"));
-        return new User(username, password, isDeleted, isBanned, created);
+        Boolean isOnline = Boolean.parseBoolean(jedisClient.hget(username, "isOnline"));
+        return new User(username, password, isDeleted, isBanned, created, isOnline);
 
     }
 
     public List<User> findAllUsers() {
         Set<String> usernames = jedisClient.smembers(USERS_LIST);
         if (usernames.isEmpty()) return new ArrayList<>();
-        return usernames.stream().map(this::findUserByUsername).collect(Collectors.toList());
+        List<User> collect = usernames.stream().map(this::findUserByUsername).collect(Collectors.toList());
+        return collect;
+    }
+
+    public boolean setIsOnlineByUsername(Boolean isOnline, String username) {
+        try {
+            jedisClient.hset(username, "isOnline", isOnline.toString());
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    public boolean doesUserExist(String username) {
+        return jedisClient.exists(username);
     }
 }

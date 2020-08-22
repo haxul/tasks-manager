@@ -3,8 +3,6 @@ import {environment} from "../../environments/environment"
 import {HttpClient, HttpHeaders} from "@angular/common/http"
 import {AuthService} from "../auth.service"
 
-declare const SockJS
-declare const Stomp
 
 interface ChatMessage {
   from: string
@@ -27,21 +25,11 @@ export class ChatService {
   constructor(private httpClient: HttpClient, private authService: AuthService) {
   }
 
-  stompClient: StompClient
 
-  connect(username: string) {
-    let socket = new SockJS(environment.serverUrl + '/gs-guide-websocket;')
-    this.stompClient = Stomp.over(socket)
-    this.stompClient.connect({},
-      () => this.stompClient.subscribe("/topic/messages/" + username, (message) => console.log(JSON.parse(message.body))),
-      () => console.log("DISCONNECT HAPPENED")
-    )
-  }
-
-  sendMessage(from: string, text: string, to: string) {
+  sendMessage(from: string, text: string, to: string, stompClient: StompClient) {
     const token: string = localStorage.getItem("token")
     const message: ChatMessage = {from, text, token}
-    this.stompClient.send("/app/user/" + to + "/chat", {}, JSON.stringify(message))
+    stompClient.send("/app/user/" + to + "/chat", {}, JSON.stringify(message))
   }
 
   findAllMembers() {
@@ -59,7 +47,7 @@ export class ChatService {
 
   }
 
-  formatDate(date: Date):string {
+  formatDate(date: Date): string {
     return `${date.getDate()}.${date.getMonth() + 1}.${date.getFullYear()} ${date.getHours()}:${date.getHours()}:${date.getSeconds()}`
   }
 }

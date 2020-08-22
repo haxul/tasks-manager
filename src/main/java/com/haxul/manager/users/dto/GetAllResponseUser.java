@@ -10,4 +10,5 @@ public class GetAllResponseUser {
     private Boolean isBanned;
     private Boolean isDeleted;
     private Timestamp created;
+    private Boolean isOnline;
 }

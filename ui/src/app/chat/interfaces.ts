@@ -4,6 +4,7 @@ export interface Member {
   isDeleted: boolean
   isBanned: boolean
   created: string
+  isOnline: boolean
 }
 
 
@@ -18,4 +19,10 @@ export interface ChatMessage {
   isOutgoingMessage: boolean
   text: string
   date: string
+}
+
+
+export interface newIncomingMessage {
+  text:string
+  from:string
 }

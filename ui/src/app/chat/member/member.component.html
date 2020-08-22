@@ -1,8 +1,9 @@
-<div class="chat_list active_chat">
+<div *ngIf="currentUser !== username" class="chat_list active_chat">
   <div class="chat_people">
     <div class="chat_img"><img src="{{defaultAvatar}}" alt="sunil"></div>
     <div class="chat_ib">
       <h5>{{username}}</h5>
+      <p>{{ isOnline ? "online" : "offline"}}</p>
     </div>
   </div>
 </div>

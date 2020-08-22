@@ -18,4 +18,6 @@ public class User {
     private Boolean isBanned = false;
     @Builder.Default
     private Timestamp created = new Timestamp(System.currentTimeMillis());
+    @Builder.Default
+    private Boolean isOnline = false;
 }

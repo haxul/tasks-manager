@@ -6,9 +6,8 @@ import {environment} from "../../../environments/environment"
   templateUrl: './member.component.html',
   styleUrls: ['./member.component.css']
 })
-export class MemberComponent implements OnInit {
+export class MemberComponent {
 
-  constructor() { }
 
   @Input()
   defaultAvatar: string = environment.avatar.default
@@ -16,9 +15,9 @@ export class MemberComponent implements OnInit {
   @Input()
   username: string
 
+  @Input()
+  isOnline: boolean
 
-  ngOnInit(): void {
-
-  }
+  currentUser: string = localStorage.getItem("user")
 
 }

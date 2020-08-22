@@ -1,8 +1,14 @@
 import {Component, OnInit} from '@angular/core'
 import {ChatService} from "./chat.service"
 import {AuthService} from "../auth.service"
-import {ResponseGetAllChatMessage, Member, ChatMessage} from "./interfaces"
+import {ResponseGetAllChatMessage, Member, ChatMessage, newIncomingMessage} from "./interfaces"
 import {map} from "rxjs/operators"
+import {environment} from "../../environments/environment"
+import {logger} from "codelyzer/util/logger"
+
+
+declare const SockJS
+declare const Stomp
 
 
 @Component({
@@ -19,22 +25,23 @@ export class ChatComponent implements OnInit {
     if (!this.pickedMember) return
     const curUsername = localStorage.getItem("user")
     const receiver: string = this.pickedMember?.username
-    if (!receiver || !curUsername || !this.newMessage) return
-    this.chatService.sendMessage(curUsername, this.newMessage, receiver)
+    if (!receiver || !curUsername || !this.newOutgoingMessage) return
+    this.chatService.sendMessage(curUsername, this.newOutgoingMessage, receiver, this.stompClient)
     const formattedDate = this.chatService.formatDate(new Date())
     this.openChatMessages.push({
-      text: this.newMessage,
+      text: this.newOutgoingMessage,
       date: formattedDate,
       isOutgoingMessage: true
     })
-    this.newMessage = null
+    this.newOutgoingMessage = null
   }
 
   chatMembers: Member[] = []
   pickedMember: Member
-  newMessage: string
+  newOutgoingMessage: string
   openChatMessages: ChatMessage[]
-
+  unreadIncomingMessages: newIncomingMessage[] = []
+  stompClient
 
   pickMember(member: Member) {
     const currentUsername: string = localStorage.getItem("user")
@@ -53,11 +60,41 @@ export class ChatComponent implements OnInit {
       .subscribe((messages: ChatMessage[]) => this.openChatMessages = messages)
   }
 
+
+  handleIncomingMessage(newMessage) {
+    if (!newMessage.body) return
+    const incomingMessage: newIncomingMessage = JSON.parse(newMessage.body)
+    if (this.pickedMember && this.pickedMember.username === incomingMessage.from) {
+      const pushedData: ChatMessage = {
+        isOutgoingMessage: false,
+        text: incomingMessage.text,
+        date: this.chatService.formatDate(new Date())
+      }
+      this.openChatMessages.push(pushedData)
+    }
+  }
+
+  connect(username: string) {
+    let socket = new SockJS(environment.serverUrl + '/gs-guide-websocket;')
+    this.stompClient = Stomp.over(socket)
+    this.stompClient.connect({username}, () => {
+      this.stompClient.subscribe("/topic/messages/" + username, (newMessage) => this.handleIncomingMessage(newMessage))
+      this.stompClient.send("/app/user/addHeader/" + username )
+    })
+  }
+
   ngOnInit(): void {
     this.authService.checkToken()
     const username = localStorage.getItem("user")
-    this.chatService.connect(username)
-    this.chatService.findAllMembers().subscribe(result => this.chatMembers = (result as Member[]), (error) => console.log(error))
+    this.connect(username)
+    this.chatService
+      .findAllMembers()
+      .subscribe(result => this.chatMembers = (result as Member[]), (error) => console.log(error))
   }
 
+  refreshMembers() {
+    this.chatService
+      .findAllMembers()
+      .subscribe(result => this.chatMembers = (result as Member[]), error  => console.log(error))
+  }
 }
