@@ -39,14 +39,27 @@ export class ChatService {
   }
 
   sendMessage(from: string, text: string, to: string) {
-    const token:string = localStorage.getItem("token")
+    const token: string = localStorage.getItem("token")
     const message: ChatMessage = {from, text, token}
     this.stompClient.send("/app/user/" + to + "/chat", {}, JSON.stringify(message))
   }
 
   findAllMembers() {
-    const headers = this.authService.createAuthHeaders()
+    const headers: HttpHeaders = this.authService.createAuthHeaders()
     const httpOptions = {headers}
     return this.httpClient.get(`${environment.serverUrl}/users`, httpOptions)
+  }
+
+  getChatMessagesWithFriend(friend: string) {
+    const token: string = localStorage.getItem("token")
+    if (!token) return
+    const headers: HttpHeaders = this.authService.createAuthHeaders()
+    const httpOptions = {headers}
+    return this.httpClient.get(`${environment.serverUrl}/messages/talk-with/${friend}`, httpOptions)
+
+  }
+
+  formatDate(date: Date):string {
+    return `${date.getDate()}.${date.getMonth() + 1}.${date.getFullYear()} ${date.getHours()}:${date.getHours()}:${date.getSeconds()}`
   }
 }

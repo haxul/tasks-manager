@@ -45,7 +45,7 @@ export class RegistrationComponent {
     if (!passControl) return errorMessageFactory("pass control", "Password does not match")
     if (username.length < 3) return errorMessageFactory("username", "Username length must be more 3 ")
     if (/\s+/.test(username)) return errorMessageFactory("username", "Username must not contain spaces")
-    if (password.length < 8) return errorMessageFactory("password", "Password must be more than 8 letters")
+    if (password.length < 3) return errorMessageFactory("password", "Password must be more than 3 letters")
     if (/\s+/.test(password)) return errorMessageFactory("password", "Password must not contain spaces")
     if (password !== passControl) return errorMessageFactory("pass control", "Passwords does not match")
     return Result.SUCCESS

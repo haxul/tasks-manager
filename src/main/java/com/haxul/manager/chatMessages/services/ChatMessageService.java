@@ -1,9 +1,12 @@
 package com.haxul.manager.chatMessages.services;
 
+import com.haxul.manager.chatMessages.dto.Message;
 import com.haxul.manager.chatMessages.repositories.ChatMessageRepository;
 import com.haxul.manager.users.security.AuthFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -22,5 +25,9 @@ public class ChatMessageService {
         }catch (Exception e) {
             return null;
         }
+    }
+
+    public List<Message> findChatWithFriend(String initiator, String friend) {
+        return chatMessageRepository.findChatWithFriend(initiator, friend);
     }
 }
