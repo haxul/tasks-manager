@@ -86,9 +86,7 @@ export class ChatComponent implements OnInit {
     this.authService.checkToken()
     const username = localStorage.getItem("user")
     this.connect(username)
-    this.chatService
-      .findAllMembers()
-      .subscribe(result => this.chatMembers = (result as Member[]), (error) => console.log(error))
+    this.refreshMembers()
   }
 
   refreshMembers() {
