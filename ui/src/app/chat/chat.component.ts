@@ -17,9 +17,16 @@ declare const Stomp
 })
 export class ChatComponent implements OnInit {
 
-  constructor(private chatService: ChatService, private  authService: AuthService) {
-  }
+  constructor(private chatService: ChatService, private  authService: AuthService) {}
 
+ 
+  chatMembers: Member[] = []
+  pickedMember: Member
+  newOutgoingMessage: string
+  openChatMessages: ChatMessage[]
+  unreadIncomingMessages: newIncomingMessage[] = []
+  stompClient
+  
   sendMessage() {
     if (!this.pickedMember) return
     const curUsername = localStorage.getItem("user")
@@ -34,14 +41,7 @@ export class ChatComponent implements OnInit {
     })
     this.newOutgoingMessage = null
   }
-
-  chatMembers: Member[] = []
-  pickedMember: Member
-  newOutgoingMessage: string
-  openChatMessages: ChatMessage[]
-  unreadIncomingMessages: newIncomingMessage[] = []
-  stompClient
-
+ 
   pickMember(member: Member) {
     const currentUsername: string = localStorage.getItem("user")
     if (!currentUsername) return
