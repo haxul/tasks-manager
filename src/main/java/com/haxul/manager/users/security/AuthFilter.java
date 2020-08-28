@@ -5,6 +5,7 @@ import io.jsonwebtoken.Jwts;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import javax.servlet.http.HttpServletRequest;
@@ -37,6 +38,11 @@ public class AuthFilter extends HandlerInterceptorAdapter {
         } catch (Exception e) {
             throw new AccessForbiddenException();
         }
+    }
+
+    @Override
+    public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
+        SecurityContextHolder.remove();
     }
 
     public String verifyToken(String token) {

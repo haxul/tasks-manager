@@ -12,4 +12,8 @@ public class SecurityContextHolder {
         return myThreadLocal.get();
     }
 
+    public static void remove() {
+        myThreadLocal.remove();
+    }
+
 }
