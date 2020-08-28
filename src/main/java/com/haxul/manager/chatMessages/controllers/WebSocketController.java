@@ -51,6 +51,7 @@ public class WebSocketController {
             response.setText("Forbidden");
             response.setFrom("Server");
             simpMessagingTemplate.convertAndSend("/topic/messages/" + message.getFrom(), response);
+            return;
         }
 
         var receiver = userService.findUserByUsername(to);
